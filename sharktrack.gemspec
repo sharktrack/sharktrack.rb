@@ -26,4 +26,8 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "activesupport", "~> 5.1"
+  spec.add_development_dependency "rspec", "~> 3.11"
+  spec.add_development_dependency "rubocop", "~> 1.36"
 end
