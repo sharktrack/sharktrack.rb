@@ -5,7 +5,7 @@ require_relative "lib/sharktrack/version"
 Gem::Specification.new do |spec|
   spec.name = "sharktrack"
   spec.version = Sharktrack::VERSION
-  spec.authors = ["UoooBarry", "Ven0802"]
+  spec.authors = %w[UoooBarry Ven0802]
   spec.email = ["huahua.personal@gmail.com"]
 
   spec.summary = "Integrate various package tracking services within one gem."
