@@ -21,8 +21,8 @@ module Sharktrack
       private
 
       def process_parameters!(hash)
-        raise ArgumentError, ":origin_body is expected" unless hash[:origin_body]
-        raise ArgumentError, ":response_format is expected" unless hash[:response_format]
+        lacked_keys = %i[origin_body response_format] - hash.keys
+        raise ArgumentError, "key #{lacked_keys.join(", ")} are expected" if lacked_keys.any?
 
         @origin_body = hash[:origin_body]
         @response_format = hash[:response_format]
