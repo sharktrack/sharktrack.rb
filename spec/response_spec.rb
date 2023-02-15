@@ -25,4 +25,10 @@ RSpec.describe Sharktrack::Response do
       res.attributes
     end.to raise_error(Sharktrack::UnsupportedReseponseFormatError)
   end
+
+  it "raise ArugmentError when required params is missing" do
+    expect do
+      Sharktrack::Response.new
+    end.to raise_error(ArgumentError)
+  end
 end

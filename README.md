@@ -1,5 +1,8 @@
 # Sharktrack
 
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+![ci](https://github.com/sharktrack/sharktrack.rb/actions/workflows/main.yml/badge.svg)
+
 Integrate various package tracking services
 
 ## Installation
