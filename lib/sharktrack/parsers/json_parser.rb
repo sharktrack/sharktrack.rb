@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 module Sharktrack
   module Parsers
     # JsonParser
@@ -11,8 +13,9 @@ module Sharktrack
       end
 
       def parse!
-        # TODO: parse raw response to hash
-        {}
+        return {} if @body.empty?
+
+        JSON.parse(@body)
       end
     end
   end
