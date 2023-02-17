@@ -18,9 +18,9 @@ module Sharktrack
       @config = nil
     end
 
-    # Acess SharkTrack::Configurable::Configuration to get configurations
+    # Acess SharkTrack.config to get configurations
     class Configuration
-      # TODO: add attr_accessor for different services
+      attr_accessor :fedex
 
       def initialize
         @enable_access_log = true
