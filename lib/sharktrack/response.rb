@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/hash/except"
-require_relative "parsers/json_parser"
 require_relative "concerns/parsable"
 require_relative "event"
 module Sharktrack
@@ -13,6 +12,16 @@ module Sharktrack
 
     def initialize(**params)
       parse_params!(**params)
+    end
+
+    def inspect
+      {
+        tracking_number: tracking_number,
+        courier: courier,
+        estimated_delivery_date: estimated_delivery_date,
+        ship_to: ship_to,
+        attributes: attributes
+      }
     end
   end
 end

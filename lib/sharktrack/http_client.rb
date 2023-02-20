@@ -1,12 +1,23 @@
 # frozen_string_literal: true
 
 require_relative "fedex/client"
+require_relative "concerns/default_format"
 require "typhoeus"
+require "sharktrack/response"
+
+require_relative "parsers/json_parser"
+require_relative "parsers/xml_parser"
 
 module Sharktrack
   # Wrap typhoeus for http request
   class HTTPClient
-    attr_reader :client, :service, :options
+    extend Concerns::DefaultFormat
+
+    attr_reader :client, :service, :options, :default_format
+
+    class << self
+      attr_reader :default_format
+    end
 
     def self.build(service, **options)
       @service = service
@@ -54,6 +65,12 @@ module Sharktrack
     def initialize(service)
       @service = service
       @client = Typhoeus
+    end
+
+    def build_response(**params)
+      params[:response_format] ||= default_format
+
+      res = Response.new(**params)
     end
   end
 end

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require "json"
 require_relative "parser"
+require "active_support/core_ext/hash/conversions"
 
 module Sharktrack
   module Parsers
-    # JsonParser
-    class JsonParser < Parser
+    # XmlParser
+    class XmlParser < Parser
       def parse!
         return {} if @body.empty?
 
-        JSON.parse(@body)
+        Hash.from_xml(@body.to_s)
       end
     end
   end

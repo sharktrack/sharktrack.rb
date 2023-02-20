@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/hash_with_indifferent_access"
+
 RSpec.describe Sharktrack::Response do
   it "can initialized and auto assign paramters to object" do
     res = Sharktrack::Response.new(origin_body: "",
@@ -13,7 +15,7 @@ RSpec.describe Sharktrack::Response do
                                    response_format: "json",
                                    courier: "UPS")
 
-    expect(res.attributes.class).to be(Hash)
+    expect(res.attributes.class).to be(ActiveSupport::HashWithIndifferentAccess)
   end
 
   it "raise UnsupportedReseponseFormatError when response format is not supported" do

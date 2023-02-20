@@ -15,7 +15,7 @@ module Sharktrack
       end
 
       def attributes
-        parser.new(origin_body).parse!
+        parser.new(origin_body).hash_with_different_acesss
       end
 
       private
