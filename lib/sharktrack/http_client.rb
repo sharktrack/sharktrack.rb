@@ -70,7 +70,7 @@ module Sharktrack
     def build_response(**params)
       params[:response_format] ||= default_format
 
-      res = Response.new(**params)
+      Response.new(**params)
     end
   end
 end
