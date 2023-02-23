@@ -22,14 +22,14 @@ module Sharktrack
     def self.build(service, **options)
       @service = service
 
-      case service
-      when "fedex"
-        client = Sharktrack::Fedex::Client.new(service).configure(options)
-        client.validate_configs!
-      else
-        raise ServiceNotSupport, "#{service.to_s.capitalize} is not supported yet."
-      end
+      client = case service
+               when "fedex"
+                 Sharktrack::Fedex::Client.new(service).configure(options)
+               else
+                 raise ServiceNotSupport, "#{service.to_s.capitalize} is not supported yet."
+               end
 
+      client.validate_configs!
       client
     end
 
