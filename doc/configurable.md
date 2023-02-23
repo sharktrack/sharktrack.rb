@@ -1,6 +1,7 @@
 # SharkTrack::Configurable
 
 This class is used to config variables(e.g. API tokens) when a project starts.
+Configurations will be covert by options provided in methods.
 
 ## Development
 
