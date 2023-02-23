@@ -49,6 +49,28 @@ module Sharktrack
       # In each subclass, implment configuration validation
     end
 
+    def base_uri
+      configurations[:base_uri]
+    end
+
+    def post(uri, body)
+      request = Typhoeus::Request.new("#{base_uri}#{uri}",
+                                      method: :post,
+                                      body: body,
+                                      header: default_headers.merge(headers))
+
+      request.run
+      body = request.response.body.to_s
+      # create a hash object, and provide the original body
+      raw = parser.new(body).hash_with_different_acesss
+      raw[:origin_body] = body
+      raw
+    end
+
+    def headers
+      {}
+    end
+
     private
 
     attr_reader :credentials
@@ -67,10 +89,18 @@ module Sharktrack
       @client = Typhoeus
     end
 
-    def build_response(**params)
-      params[:response_format] ||= default_format
+    def default_headers
+      {
+        "User-Agent" => "Sharktrack/#{Sharktrack::VERSION} (Language=Ruby)",
+        "Content-Type" => "application/json"
+      }
+    end
 
-      Response.new(**params)
+    def parser
+      Parsers.const_get("#{default_format.capitalize}Parser")
+    rescue NameError
+      raise Sharktrack::UnsupportedReseponseFormatError,
+            "#{default_format.capitalize} response is not supported yet."
     end
   end
 end

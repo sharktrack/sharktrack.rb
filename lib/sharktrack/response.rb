@@ -8,10 +8,10 @@ module Sharktrack
   class Response
     include Concerns::Parsable
 
-    attr_accessor :tracking_number, :ship_to, :estimated_delivery_date, :courier, :events
+    attr_accessor :tracking_number, :ship_to, :estimated_delivery_date, :courier, :events, :origin_body
 
     def initialize(**params)
-      parse_params!(**params)
+      parse_params!(params)
     end
 
     def inspect
@@ -19,8 +19,7 @@ module Sharktrack
         tracking_number: tracking_number,
         courier: courier,
         estimated_delivery_date: estimated_delivery_date,
-        ship_to: ship_to,
-        attributes: attributes
+        ship_to: ship_to
       }
     end
   end
