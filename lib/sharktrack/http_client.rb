@@ -33,6 +33,8 @@ module Sharktrack
       client
     end
 
+    # Implmentation of track_by_number features for differenct clients
+    # Expect to return Sharktrack::Response as result
     def track_by_number(*args)
       raise NotImplementedError, "Method missing in #{self.class}"
     end
