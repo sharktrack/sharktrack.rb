@@ -7,10 +7,10 @@ module Sharktrack
   class Event
     include Concerns::Parsable
 
-    attr_accessor :timestamp, :description, :country, :city, :province
+    attr_accessor :timestamp, :description, :country, :city, :province, :residential
 
     def initialize(**params)
-      parse_params(**params)
+      parse_params!(**params)
     end
   end
 end

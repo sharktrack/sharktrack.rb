@@ -19,7 +19,8 @@ module Sharktrack
         tracking_number: tracking_number,
         courier: courier,
         estimated_delivery_date: estimated_delivery_date,
-        ship_to: ship_to
+        ship_to: ship_to,
+        origin_body: origin_body
       }
     end
   end

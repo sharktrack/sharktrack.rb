@@ -35,6 +35,7 @@ module Sharktrack
 
     # Implmentation of track_by_number features for differenct clients
     # Expect to return Sharktrack::Response as result
+    # @return Sharktrack:Response
     def track_by_number(*args)
       raise NotImplementedError, "Method missing in #{self.class}"
     end
@@ -52,9 +53,12 @@ module Sharktrack
     end
 
     def base_uri
-      configurations[:base_uri]
+      @options[:base_uri]
     end
 
+    # @param string uri
+    # @param string body
+    # @return Sharktrack::Response response
     def post(uri, body)
       request = Typhoeus::Request.new("#{base_uri}#{uri}",
                                       method: :post,
