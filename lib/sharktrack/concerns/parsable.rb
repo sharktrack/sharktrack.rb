@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/hash/except"
 module Sharktrack
   module Concerns
     # Auto parsing response body to hash attributes
@@ -16,12 +17,12 @@ module Sharktrack
       private
 
       def process_parameters!(hash)
-        lacked_keys = %i[origin_body] - hash.keys
+        lacked_keys = %i[body] - hash.keys
         raise ArgumentError, "key #{lacked_keys.join(", ")} are expected" if lacked_keys.any?
 
-        @origin_body = hash[:origin_body]
+        @origin_body = hash[:body]
 
-        hash.except(:origin_body)
+        hash.except(:body)
       end
     end
   end
