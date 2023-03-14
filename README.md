@@ -3,20 +3,20 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 ![ci](https://github.com/sharktrack/sharktrack.rb/actions/workflows/main.yml/badge.svg)
 
-Integrate various package tracking services
+WIP:Integrate various package tracking services
 
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-    bundle add sharktrack
+bundle add sharktrack
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-    gem install sharktrack
+gem install sharktrack
 ```
 
 ## Usage
