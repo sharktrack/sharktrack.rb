@@ -60,12 +60,7 @@ module Sharktrack
     # @param [string] body
     # @return Sharktrack::Response response
     def post(uri, body)
-      request = Typhoeus::Request.new("#{base_uri}#{uri}",
-                                      method: :post,
-                                      body: body,
-                                      header: default_headers.merge(headers))
-
-      request.run
+      request = send_request(uri, :post, body)
       body = request.response.body.to_s
       # create a hash object, and provide the original body
       raw = parser.new(body).hash_with_different_acesss
@@ -80,6 +75,22 @@ module Sharktrack
     private
 
     attr_reader :credentials
+
+    def send_request(uri, method, params)
+      request = Typhoeus::Request.new("#{base_uri}#{uri}",
+                                      method: method,
+                                      body: params,
+                                      header: default_headers.merge(headers))
+
+      request.on_complete do |response|
+        if response.code > 300 || response.code < 200
+          raise Sharktrack::ResponseCodeError.new("Request return code #{response.code}", response)
+        end
+      end
+
+      request.run
+      request
+    end
 
     def configurations
       Sharktrack.config.send(service) || {}

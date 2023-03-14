@@ -23,9 +23,19 @@ module Sharktrack
 
       private
 
+      # rubocop:disable Metrics/AbcSize
       def process_raw_response(raw_response)
         body = raw_response.dig("Envelope", "Body")
+        status = body.dig("TrackReply", "HighestSeverity")
+        raise ResponseContentError.new("Fedex return HighestSeverity error", raw_response) if status == "ERROR"
+
         track_detail = body.dig("TrackReply", "CompletedTrackDetails")
+        track_notification = track_detail.fetch("TrackDetails").fetch("Notification")
+        if track_notification["Severity"] == "ERROR"
+          raise ResponseContentError.new(track_notification["Message"],
+                                         raw_response)
+        end
+
         tracking_number = track_detail.dig("TrackDetails", "TrackingNumber")
         ship_to = track_detail.dig("TrackDetails", "DestinationAddress")
         events = Array.wrap(track_detail.dig("TrackDetails", "Events"))
@@ -40,6 +50,7 @@ module Sharktrack
                                  body: raw_response,
                                  events: events.map { |e| process_raw_event(e) })
       end
+      # rubocop:enable Metrics/AbcSize
 
       def process_raw_event(raw_event)
         timestamp = raw_event["Timestamp"]
@@ -53,7 +64,7 @@ module Sharktrack
                               country: country,
                               province: province,
                               residential: residential.to_s == "true",
-                              origin_body: raw_event)
+                              body: raw_event)
       end
 
       def request_body(number)

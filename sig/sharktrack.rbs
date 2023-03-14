@@ -1,4 +1,13 @@
 module Sharktrack
   VERSION: String
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  class Response
+    attr_reader tracking_number: string
+    attr_reader ship_to: string
+    attr_reader estimated_delivery_date: string
+    attr_reader body: hash
+    attr_reader courier: string
+    attr_reader events: Array[Sharktrack::Event]
+  end
 end
