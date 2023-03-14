@@ -14,6 +14,7 @@ module Sharktrack
 
       default_response_format :xml
 
+      # @param [string] tracking_number
       def track_by_number(number)
         raw_response = post("/", request_body(number))
 
@@ -28,10 +29,15 @@ module Sharktrack
         tracking_number = track_detail.dig("TrackDetails", "TrackingNumber")
         ship_to = track_detail.dig("TrackDetails", "DestinationAddress")
         events = Array.wrap(track_detail.dig("TrackDetails", "Events"))
+        estimated_delivery_date = track_detail.dig("TrackDetails", "DatesOrTimes").find do |date|
+          date["Type"] == "ESTIMATED_DELIVERY"
+        end.try(:[], "DateOrTimestamp")
+
         Sharktrack::Response.new(courier: "fedex",
                                  tracking_number: tracking_number,
                                  ship_to: ship_to,
-                                 origin_body: raw_response[:origin_body],
+                                 estimated_delivery_date: estimated_delivery_date,
+                                 body: raw_response,
                                  events: events.map { |e| process_raw_event(e) })
       end
 

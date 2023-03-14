@@ -1,5 +1,7 @@
 ## [Unreleased]
 
-## [0.1.0] - 2023-02-15
+This gem is still work in progress.
+
+## [0.1.0] - WIP
 
 - Initial release

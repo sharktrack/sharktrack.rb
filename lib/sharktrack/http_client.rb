@@ -56,8 +56,8 @@ module Sharktrack
       @options[:base_uri]
     end
 
-    # @param string uri
-    # @param string body
+    # @param [string] uri
+    # @param [string] body
     # @return Sharktrack::Response response
     def post(uri, body)
       request = Typhoeus::Request.new("#{base_uri}#{uri}",
