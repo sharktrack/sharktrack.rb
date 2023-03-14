@@ -9,15 +9,45 @@ Integrate various package tracking services
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add sharktrack
+```bash
+    bundle add sharktrack
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install sharktrack
+```bash
+    gem install sharktrack
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Setup in initializers
+
+```ruby
+Sharktrack.configure do |config|
+    config.fedex = {
+        base_uri: "" # base_uri
+        credentials: { # Fedex credentials
+            key: "",
+            account: "",
+            password: "",
+            meter: "", 
+        },
+        language: "" # accept 'en' or 'fr'
+    }
+end
+```
+
+Call the api
+
+```ruby
+Sharktrack::Fedex.track_by_number('797806677146')
+# or merge request with options
+Sharktrack::Fedex.track_by_number('797806677146', language: 'fr', credentials: {})
+# or create a reusable instance
+client = Sharktrack::HTTPClient.build('fedex', options)
+client.track_by_number('797806677146')
+```
 
 ## Development
 
@@ -31,7 +61,7 @@ Any tracking service results should return a `SharkTrack::Response`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sharktrack/sharktrack.rb. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/sharktrack/sharktrack.rb/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/sharktrack/sharktrack.rb>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/sharktrack/sharktrack.rb/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
