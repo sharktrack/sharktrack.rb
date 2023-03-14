@@ -16,6 +16,6 @@ module Sharktrack
       @response = response
     end
   end
-  
-  class ResponseContentError < ResponseCodeError; end;
+
+  class ResponseContentError < ResponseCodeError; end
 end
